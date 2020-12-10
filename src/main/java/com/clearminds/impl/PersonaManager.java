@@ -15,10 +15,8 @@ public class PersonaManager {
 	
 	public PersonaManager() {
 		Class<?> clase;
-		Properties p = new Properties();
-		String path = "C:\\Users\\57300\\Documents\\Daniel\\CapacitacionCMC\\Repositorios\\herencia\\config.properties";
+		Properties p = cargarPropiedades();
 		try {
-			p.load(new FileReader(path));
 			clase = Class.forName(p.getProperty("claseImplementada"));
 			serv=(ServicioPersona)clase.newInstance();
 		} catch (ClassNotFoundException e) {
@@ -28,12 +26,6 @@ public class PersonaManager {
 			e.printStackTrace();
 			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
-		} catch (IOException e) {
 			e.printStackTrace();
 			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
 		}
@@ -51,5 +43,19 @@ public class PersonaManager {
 	public void insertarPersona(Persona persona) {
 		serv.insertar(persona);
 	}
-
+	
+	private Properties cargarPropiedades() {
+		Properties p = new Properties();
+		String path = "config.properties";
+		
+		try {
+			p.load(new FileReader(path));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return p;
+	}
 }
