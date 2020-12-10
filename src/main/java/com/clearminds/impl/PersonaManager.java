@@ -20,6 +20,7 @@ public class PersonaManager {
 	}
 	
 	public void insertarPersona(Persona persona) {
+		serv = new ServicioPersonaArchivos();
 		serv.insertar(persona);
 	}
 
